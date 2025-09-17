@@ -45,4 +45,4 @@ Authentication with JWT/OTP
 
 Database:
 
-MongoDB Atlas / MySQL (based on deployment)
+MySQL / SQL Serever
