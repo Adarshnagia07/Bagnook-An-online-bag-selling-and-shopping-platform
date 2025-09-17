@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Search Results - Bagnook</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo"><img src="assets/shopping-bag.png" alt="Logo" /><span>Bagnook</span></div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="cart.html" class="cart-link">🛒 Cart <span class="cart-count" id="cart-count">0</span></a>
+    </nav>
+  </header>
+
+  <section class="search-results">
+    <h2>Search Results</h2>
+    <div id="results-container" class="deal-grid"></div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 Bagnook. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const allProducts = [
+      { name: "Safari Trolley 65L", img: "assets/safarigrey.webp", price: "₹2,799" },
+      { name: "American Tourister Backpack", img: "assets/amt.jpg", price: "₹1,499" },
+      { name: "Skybags Duffle Bag", img: "assets/skydf.jpg", price: "₹1,899" },
+      { name: "Wildcraft Rucksack", img: "assets/wildruck.jpg", price: "₹1,999" },
+      { name: "Lavie Handbag", img: "assets/lavie.jpg", price: "₹1,299" },
+      { name: "Gear Casual Backpack", img: "assets/gearbg.jpg", price: "₹899" },
+
+      { name: "VIP Check-in Trolley", price: "₹3,999", img: "assets/5100eht1tbl_01.webp" },
+      { name: "Skyline Spinner", price: "₹2,999", img: "assets/FP8 (0) 09 001yl.avif" },
+      { name: "American Tourister Trolley", price: "₹4,499", img: "assets/trolley1.webp" },
+      { name: "Safari Trolley Bag", price: "₹3,499", img: "assets/trolley3.webp" },
+      { name: "Wildcraft Trolley", price: "₹5,499", img: "assets/trolley4.webp" },
+
+      { name: "Lavie Stylish Handbag", price: "₹1,299", img: "assets/lavie.jpg" },
+      { name: "Caprese Tote", price: "₹1,899", img: "assets/tote.webp" },
+      { name: "Fastrack Handbag", price: "₹1,499", img: "assets/handbag1.jpg" },
+      { name: "Baggit Sling Bag", price: "₹1,199", img: "assets/handbag4.webp" },
+      { name: "Hidesign Leather Handbag", price: "₹3,999", img: "assets/handbag3.webp" },
+  
+      { name: "American Tourister Backpack", price: "₹1,599", img: "assets/amt.jpg" },
+      { name: "Skybags Daypack", price: "₹1,099", img: "assets/skydf.jpg" },
+      { name: "Wildcraft Backpack", price: "₹1,799", img: "assets/backpack3.webp" },
+      { name: "Puma Sports Backpack", price: "₹2,299", img: "assets/backpack4.avif" },
+      { name: "Fastrack Urban Backpack", price: "₹1,399", img: "assets/backpack5.jpg" },
+  
+      { name: "Nike Duffle", price: "₹2,099", img: "assets/NK+ONE+DUFFEL.avif" },
+      { name: "Wildcraft Gym Duffel", price: "₹1,499", img: "assets/wildruck.jpg" },
+      { name: "Puma Weekend Duffel", price: "₹1,799", img: "assets/duffle3.avif" },
+      { name: "Adidas Travel Duffel", price: "₹2,499", img: "assets/duffel4.avif" },
+      { name: "Fastrack Duffle Bag", price: "₹1,299", img: "assets/duffel5.jpg" },
+  
+      { name: "Urban Sling", price: "₹999", img: "assets/slingbag.webp" },
+      { name: "Fastrack Sling Bag", price: "₹1,199", img: "assets/sling2.jpg" },
+      { name: "Hidesign Sling Bag", price: "₹2,499", img: "assets/sling3.webp" },
+      { name: "Baggit Sling Bag", price: "₹1,799", img: "assets/sling4.jpg" },
+      { name: "Lavie Sling Bag", price: "₹1,399", img: "assets/sling5.avif" },
+
+      { name: "Trek Rucksack 60L", price: "₹2,199", img: "assets/rucksack.jpg" },
+      { name: "Wildcraft Rucksack", price: "₹2,499", img: "assets/rucksack2.webp" },
+      { name: "Puma Rucksack", price: "₹2,799", img: "assets/rucksack3.webp" },
+      { name: "Fastrack Rucksack", price: "₹2,999", img: "assets/rucksack4.avif" },
+      { name: "Skybags Rucksack", price: "₹1,999", img: "assets/rucksack5.webp" },
+  
+      { name: "Cotton Tote", price: "₹699", img: "assets/tote.webp" },
+      { name: "Jute Tote", price: "₹799", img: "assets/tote2.webp" },
+      { name: "Canvas Tote", price: "₹899", img: "assets/tote3.webp" },
+      { name: "Leather Tote", price: "₹1,499", img: "assets/tote4.webp" },
+      { name: "Designer Tote", price: "₹2,199", img: "assets/tote5.avif" },
+   
+      { name: "Black Party Clutch", price: "₹499", img: "assets/clutch.webp" },
+      { name: "Golden Evening Clutch", price: "₹599", img: "assets/clutch2.avif" },
+      { name: "Silver Clutch", price: "₹699", img: "assets/clutch3.webp" },
+      { name: "Red Velvet Clutch", price: "₹799", img: "assets/clutch4.jpg" },
+      { name: "Beaded Clutch", price: "₹899", img: "assets/clutch5.jpg" },
+    
+      { name: "Black Trolley Combo", price: "₹1,999", img: "assets/combo.jpg" },
+      { name: "Trolley Combo", price: "₹3,499", img: "assets/combo1.jpeg" },
+      { name: "Designer Trolley Combo", price: "₹4,199", img: "assets/combo3.webp" },
+      { name: "Trolley + Backpack Combo", price: "₹5,999", img: "assets/combo4.webp" },
+      { name: "Designer Trolley Combo", price: "₹1,299", img: "assets/combo2.jpg" }
+    ];
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      document.getElementById("cart-count").textContent = cart.length;
+    }
+
+    function addToCart(name, price, img) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push({ name, price, img });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      alert(`${name} added to cart!`);
+    }
+
+    function buyNow(name, price) {
+      alert(`🛍️ Proceeding to buy ${name} for ${price}`);
+    }
+
+    function getQueryParam() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get("query")?.toLowerCase() || "";
+    }
+
+    function displaySearchResults() {
+      const query = getQueryParam();
+      const resultsContainer = document.getElementById("results-container");
+
+      if (!query) {
+        resultsContainer.innerHTML = "<p>Please enter a search query.</p>";
+        return;
+      }
+
+      const filtered = allProducts.filter(p => p.name.toLowerCase().includes(query));
+
+      if (filtered.length === 0) {
+        resultsContainer.innerHTML = `<p>No products found for "${query}".</p>`;
+        return;
+      }
+
+      resultsContainer.innerHTML = "";
+      filtered.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "deal-card";
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.name}">
+          <h4>${p.name}</h4>
+          <p class="price">${p.price}</p>
+          <button class="btn-cart" onclick="addToCart('${p.name}', '${p.price}', '${p.img}')">Add to Cart</button>
+          <button class="btn-buy" onclick="buyNow('${p.name}', '${p.price}')">Buy Now</button>
+        `;
+        resultsContainer.appendChild(card);
+      });
+    }
+
+    updateCartCount();
+    displaySearchResults();
+  </script>
+</body>
+</html>

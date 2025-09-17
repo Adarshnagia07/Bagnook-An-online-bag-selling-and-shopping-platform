@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bagnook - Become a Seller</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: #f9f9f9;
+      color: #333;
+    }
+    header, footer {
+      background-color: #004f40;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header h1, footer h1 {
+      font-size: 1.5rem;
+    }
+    nav a {
+      color: white;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .section-banner {
+      text-align: center;
+      padding: 2rem;
+      background-color: #e8f5e9;
+    }
+    .section-banner h2 {
+      font-size: 2.5rem;
+      color: #004f40;
+    }
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .feature-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      width: 280px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+    .feature-card i {
+      font-size: 2rem;
+      color: #00796b;
+      margin-bottom: 1rem;
+    }
+    .success-stories {
+      background-color: #f1f8e9;
+      padding: 2rem;
+      text-align: center;
+    }
+    .success-stories h3 {
+      color: #004f40;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    .story {
+      background: white;
+      margin: 0 auto;
+      padding: 2rem;
+      border-radius: 1rem;
+      width: 90%;
+      max-width: 800px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .story img {
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      border: 3px solid #ffd700;
+    }
+    .story-text {
+      text-align: left;
+    }
+    .cta-form {
+      background: #004f40;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    .cta-form h3 {
+      margin-bottom: 1rem;
+    }
+    .cta-form input, .cta-form button {
+      padding: 0.7rem;
+      margin: 0.5rem;
+      width: 90%;
+      max-width: 400px;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+    }
+    .cta-form input {
+      color: #333;
+    }
+    .cta-form button {
+      background: #ffd700;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      .features {
+        flex-direction: column;
+        align-items: center;
+      }
+      .story {
+        flex-direction: column;
+        text-align: center;
+      }
+      .story-text {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 style="display: flex; align-items: center;">
+  <img src="assets/shopping-bag.png" alt="Bagnook Logo" style="height: 40px; margin-right: 0.5rem;" />
+  Bagnook
+</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="become-seller.html">Become a Seller</a>
+      <a href="faqs.html">FAQs</a>
+      <a href="privacy-policy.html">Privacy</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+  </header>
+
+  <section class="section-banner">
+    <h2>Become a Seller on Bagnook</h2>
+    <p>Join successful sellers and grow your bag business online!</p>
+  </section>
+
+  <section class="features">
+    <div class="feature-card">
+      <i class="fas fa-users"></i>
+      <h4>Large Customer Base</h4>
+      <p>Reach millions of bag shoppers across India.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-rupee-sign"></i>
+      <h4>Timely Payments</h4>
+      <p>Secure payments every 7 days straight to your bank.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-percent"></i>
+      <h4>Low Selling Fees</h4>
+      <p>Minimum charges so you keep more profits.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-headset"></i>
+      <h4>Dedicated Support</h4>
+      <p>24/7 help for all your seller queries.</p>
+    </div>
+  </section>
+
+  <section class="success-stories">
+    <h3>Seller Success Stories</h3>
+    <div class="story">
+      <img src="assets/salesmanforbecome-seller.png" alt="Seller Photo" />
+      <div class="story-text">
+        <h4>Sales Man Squid Game, Smart Bags & Accessories</h4>
+        <p>We started with 100 bags per month. Now we sell over 700 daily thanks to Bagnook Ads, fast payouts, and the easy-to-use dashboard.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-form">
+    <h3>Ready to Grow Your Business?</h3>
+    <p>Register now to start selling on Bagnook!</p>
+    <form action="/register-seller" method="POST">
+      <input type="text" name="name" placeholder="Full Name" required /><br/>
+      <input type="email" name="email" placeholder="Email Address" required /><br/>
+      <input type="text" name="phone" placeholder="Phone Number" required /><br/>
+      <button type="submit">Register Now</button>
+    </form>
+  </section>
+
+  <footer>
+    <h1>Bagnook</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="become-seller.html">Become a Seller</a>
+      <a href="faqs.html">FAQs</a>
+      <a href="privacy-policy.html">Privacy</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+  </footer>
+</body>
+</html>
+

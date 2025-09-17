@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - Bagnook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    /* Same styles as you provided (unchanged) */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background-color: #f1f1f1;
+      color: #333;
+    }
+    header {
+      background-color: #004f40;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header h1 {
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+    header h1 img {
+      height: 40px;
+      margin-right: 0.5rem;
+    }
+    nav a {
+      color: white;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .signup-container {
+      max-width: 400px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #004f40;
+    }
+    input[type="text"], input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #004f40;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #00796b;
+    }
+    .login-link {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .login-link a {
+      color: #004f40;
+      text-decoration: none;
+    }
+    .brand-image {
+      display: block;
+      margin: 2rem auto;
+      max-width: 160px;
+    }
+    .message {
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: bold;
+      color: green;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><img src="assets/shopping-bag.png" alt="Bagnook Logo" />Bagnook</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="become-seller.html">Become a Seller</a>
+      <a href="faqs.html">FAQs</a>
+      <a href="privacy-policy.html">Privacy</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+  </header>
+
+  <img src="assets/shopping-bag.png" alt="Bagnook Logo" class="brand-image" />
+
+  <div class="signup-container">
+    <h2>Create Your Bagnook Account</h2>
+    <form id="signupForm">
+      <input type="text" name="name" id="name" placeholder="Full Name" required />
+      <input type="email" name="email" id="email" placeholder="Email Address" required />
+      <input type="password" name="password" id="password" placeholder="Password" required />
+      <button type="submit">Sign Up</button>
+    </form>
+    <div class="message" id="message"></div>
+    <div class="login-link">
+      <p>Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+  </div>
+
+  <script>
+  document.getElementById("signupForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    try {
+      const response = await fetch("http://localhost:3000/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+  alert("✅ Signup successful! Please login.");
+  window.location.href = "login.html";
+} else {
+  alert("❌ Signup failed: " + (data.message || "Unknown error"));
+}
+
+    } catch (err) {
+      alert("❌ Server error. Please try again.");
+      console.error(err);
+    }
+  });
+</script>
+
+</body>
+</html>

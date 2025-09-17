@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQs - Bagnook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: #f5f5f5;
+      color: #333;
+    }
+    header, footer {
+      background-color: #004f40;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header h1, footer h1 {
+      font-size: 1.5rem;
+    }
+    nav a {
+      color: white;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    .faq-section {
+      margin-bottom: 2rem;
+    }
+    .faq-item {
+      background: white;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 1rem;
+      background: #e0f2f1;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .faq-question:hover {
+      background: #b2dfdb;
+    }
+    .faq-answer {
+      padding: 1rem;
+      display: none;
+      background: #f9f9f9;
+      border-top: 1px solid #ddd;
+      line-height: 1.6;
+    }
+    .faq-answer.open {
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .faq-question {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 style="display: flex; align-items: center;">
+  <img src="assets/shopping-bag.png" alt="Bagnook Logo" style="height: 40px; margin-right: 0.5rem;" />
+  Bagnook
+</h1>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="become-seller.html">Become a Seller</a>
+      <a href="faqs.html">FAQs</a>
+      <a href="privacy-policy.html">Privacy</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="faq-section">
+      <div class="faq-item">
+        <div class="faq-question">1. What is Bagnook and how do I sell on it?</div>
+        <div class="faq-answer">Bagnook is an e-commerce platform for selling bags and luggage. To start selling, simply register as a seller, list your products, and start receiving orders.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">2. Is there any fee to register as a seller?</div>
+        <div class="faq-answer">No, registering as a seller on Bagnook is completely free. We only charge a small commission on each successful sale.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">3. How will I receive payments?</div>
+        <div class="faq-answer">Payments are securely transferred to your registered bank account within 7 working days of order completion.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">4. Do I need a GST number to sell?</div>
+        <div class="faq-answer">Yes, a valid GST number is required to list and sell products on Bagnook in compliance with Indian tax laws.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">5. How do I handle returns and cancellations?</div>
+        <div class="faq-answer">Our return and cancellation policy protects both sellers and buyers. You'll be notified immediately, and we handle logistics with minimal hassle for you.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">6. Can I advertise my products?</div>
+        <div class="faq-answer">Absolutely! We offer affordable advertising tools to boost product visibility and increase sales across the Bagnook platform.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">7. How do I contact seller support?</div>
+        <div class="faq-answer">You can reach out to our 24/7 seller support team via your seller dashboard or email us at support@bagnook.com.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <h1>Bagnook</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="become-seller.html">Become a Seller</a>
+      <a href="faqs.html">FAQs</a>
+      <a href="privacy-policy.html">Privacy</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+  </footer>
+
+  <script>
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(q => {
+      q.addEventListener('click', () => {
+        const answer = q.nextElementSibling;
+        answer.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>

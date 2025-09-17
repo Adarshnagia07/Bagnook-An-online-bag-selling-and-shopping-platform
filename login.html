@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Bagnook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background-color: #f1f1f1;
+      color: #333;
+    }
+    header {
+      background-color: #004f40;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header h1 {
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+    header h1 img {
+      height: 40px;
+      margin-right: 0.5rem;
+    }
+    nav a {
+      color: white;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .login-container {
+      max-width: 400px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #004f40;
+    }
+    input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #004f40;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #00796b;
+    }
+    .signup-link {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .signup-link a {
+      color: #004f40;
+      text-decoration: none;
+    }
+    .brand-image {
+      display: block;
+      margin: 2rem auto;
+      max-width: 160px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><img src="assets/shopping-bag.png" alt="Bagnook Logo" />Bagnook</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="become-seller.html">Become a Seller</a>
+      <a href="faqs.html">FAQs</a>
+      <a href="privacy-policy.html">Privacy</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+  </header>
+
+  <img src="assets/shopping-bag.png" alt="Bagnook Logo" class="brand-image" />
+
+  <div class="login-container">
+    <h2>Login to Bagnook</h2>
+    <form id="loginForm">
+  <input type="email" id="email" placeholder="Email Address" required />
+  <input type="password" id="password" placeholder="Password" required />
+  <button type="submit">Login</button>
+</form>
+
+
+    <div class="signup-link">
+      <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
+    </div>
+  </div>
+  <script>
+  document.getElementById("loginForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    try {
+      const response = await fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.user) {
+  alert("✅ Login successful!");
+  localStorage.setItem("user", JSON.stringify(data.user));
+  window.location.href = "index.html";
+} else {
+  alert("❌ Login failed: " + (data.message || "Unknown error"));
+}
+
+    } catch (err) {
+      alert("❌ Server error. Please try again.");
+      console.error(err);
+    }
+  });
+</script>
+
+</body>
+</html>
+

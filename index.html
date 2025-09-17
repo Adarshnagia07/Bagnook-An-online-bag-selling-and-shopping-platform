@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bagnook - Bags & Luggage</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">
+      <img src="assets/shopping-bag.png" alt="Bagnook Logo" />
+      <span>Bagnook</span>
+    </div>
+    <div class="search-container">
+      <input type="text" id="search-input" placeholder="Search bags..." />
+      <button onclick="performSearch()">🔍</button>
+    </div>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="become-seller.html">Become a Seller</a>
+      <a href="faqs.html">FAQs</a>
+      <a href="login.html" id="login-link">Login</a>
+      <a href="signup.html" id="signup-link">Sign Up</a>
+      <a href="profile.html" id="profile-link" style="display:none;">👤 Profile</a>
+      <a href="#" onclick="logout()" id="logout-link" style="display:none;">🚪 Logout</a>
+      <a href="cart.html" class="cart-link">
+        🛒 Cart <span class="cart-count" id="cart-count">0</span>
+      </a>
+      <a href="orders.html">📦 My Orders</a>
+
+    </nav>
+    <p id="greeting" style="margin-left: auto; font-weight: bold;"></p>
+  </header>
+
+  <!-- Search Results -->
+  <section id="search-results" style="display: none;">
+    <h2>🔍 Search Results</h2>
+    <div class="deal-grid" id="results-container"></div>
+  </section>
+
+  <!-- Slideshow -->
+  <section class="slideshow">
+    <div class="slides fade"><img src="assets/rahul-himkar-H_BqivADClM-unsplash.jpg" alt="Slide 1"></div>
+    <div class="slides fade"><img src="assets/guido-coppa-uli6LsaENfk-unsplash.jpg" alt="Slide 2"></div>
+    <div class="slides fade"><img src="assets/eric-prouzet-CLAvE7s0xRA-unsplash.jpg" alt="Slide 3"></div>
+  </section>
+
+  <!-- Categories -->
+  <section class="categories">
+    <h2>👜 Shop by Bag Categories</h2>
+    <div class="category-grid">
+      <!-- (category cards unchanged) -->
+      <a href="category.html?category=Trolley%20Bags" class="category-card"><img src="assets/5100eht1tbl_01.webp" /><p>Trolley Bags</p></a>
+      <a href="category.html?category=Handbags" class="category-card"><img src="assets/2023_feb_perona_bags_day1-0403-copy-v3WONWEB3T.webp" /><p>Handbags</p></a>
+      <a href="category.html?category=Backpacks" class="category-card"><img src="assets/All-Beige-Pedal-Daypack-vw.avif" /><p>Backpacks</p></a>
+      <a href="category.html?category=Duffle%20Bags" class="category-card"><img src="assets/NK+ONE+DUFFEL.avif" /><p>Duffle Bags</p></a>
+      <a href="category.html?category=Sling%20Bags" class="category-card"><img src="assets/slingbag.webp" /><p>Sling Bags</p></a>
+      <a href="category.html?category=Rucksacks" class="category-card"><img src="assets/rucksack.jpg" /><p>Rucksacks</p></a>
+      <a href="category.html?category=Tote%20Bags" class="category-card"><img src="assets/tote.webp" /><p>Tote Bags</p></a>
+      <a href="category.html?category=Clutches" class="category-card"><img src="assets/clutch.webp" /><p>Clutches</p></a>
+      <a href="category.html?category=Combos" class="category-card"><img src="assets/combo.jpg" /><p>Combos</p></a>
+    </div>
+  </section>
+
+  <!-- Discounted Deals -->
+  <section class="deals">
+    <h2>🔥 Discounted Deals</h2>
+    <div class="deal-grid" id="main-deals"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Bagnook. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    let slideIndex = 0;
+    let allProducts = [];
+
+    function showSlides() {
+      const slides = document.getElementsByClassName("slides");
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1; }
+      slides[slideIndex - 1].style.display = "block";
+      setTimeout(showSlides, 3000);
+    }
+
+    function showGreeting() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const greeting = document.getElementById('greeting');
+
+      if (user && user.name) {
+        greeting.textContent = `👋 Hi, ${user.name}`;
+        document.getElementById('login-link').style.display = 'none';
+        document.getElementById('signup-link').style.display = 'none';
+        document.getElementById('logout-link').style.display = 'inline-block';
+        document.getElementById('profile-link').style.display = 'inline-block';
+      } else {
+        greeting.textContent = "👤 Guest";
+        document.getElementById('login-link').style.display = 'inline-block';
+        document.getElementById('signup-link').style.display = 'inline-block';
+        document.getElementById('logout-link').style.display = 'none';
+        document.getElementById('profile-link').style.display = 'none';
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('user');
+      location.reload();
+    }
+
+    function addToCart(name, price, img) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push({ name, price, img });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      alert(`${name} added to cart!`);
+    }
+
+    function buyNow(name, price, img) {
+      const item = { name, price, img };
+      localStorage.setItem('buyNowItem', JSON.stringify(item));
+      window.location.href = "checkout.html";
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+
+    async function fetchProducts() {
+      try {
+        const response = await fetch('http://localhost:3000/api/products');
+        const data = await response.json();
+        allProducts = data;
+        showDeals();
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+        document.querySelector(".deals").innerHTML = "<p style='text-align:center;color:red;'>Error loading products.</p>";
+      }
+    }
+
+    function showDeals() {
+      const mainDeals = document.getElementById("main-deals");
+      mainDeals.innerHTML = "";
+
+      allProducts.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "deal-card";
+        div.innerHTML = `
+          <img src="${p.image}" alt="${p.name}">
+          <h4>${p.name}</h4>
+          <p class="price">₹${p.price}</p>
+          <div class="btn-group">
+            <button class="btn btn-cart" onclick="addToCart('${p.name}', '${p.price}', '${p.image}')">Add to Cart</button>
+            <button class="btn btn-buy" onclick="buyNow('${p.name}', '${p.price}', '${p.image}')">Buy Now</button>
+          </div>
+        `;
+        mainDeals.appendChild(div);
+      });
+    }
+
+    function performSearch() {
+      const query = document.getElementById("search-input").value.toLowerCase();
+      const results = allProducts.filter(p => p.name.toLowerCase().includes(query));
+      const resultsContainer = document.getElementById("results-container");
+
+      if (query === "") {
+        document.getElementById("search-results").style.display = "none";
+        document.querySelector(".deals").style.display = "block";
+        document.querySelector(".slideshow").style.display = "block";
+        return;
+      }
+
+      resultsContainer.innerHTML = results.map(p => `
+        <div class="deal-card">
+          <img src="${p.image}" alt="${p.name}">
+          <h4>${p.name}</h4>
+          <p class="price">₹${p.price}</p>
+          <div class="btn-group">
+            <button class="btn btn-cart" onclick="addToCart('${p.name}', '${p.price}', '${p.image}')">Add to Cart</button>
+            <button class="btn btn-buy" onclick="buyNow('${p.name}', '${p.price}', '${p.image}')">Buy Now</button>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById("search-results").style.display = "block";
+      document.querySelector(".deals").style.display = "none";
+      document.querySelector(".slideshow").style.display = "none";
+    }
+
+    // ✅ Ensure all run after DOM is ready
+    document.addEventListener("DOMContentLoaded", () => {
+      showGreeting();
+      updateCartCount();
+      showSlides();
+      fetchProducts();
+    });
+  </script>
+</body>
+</html>

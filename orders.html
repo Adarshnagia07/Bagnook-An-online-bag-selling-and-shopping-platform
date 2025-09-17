@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Orders - Bagnook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .orders-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .order-card {
+      border-bottom: 1px solid #ddd;
+      padding: 1rem 0;
+    }
+    .order-card:last-child {
+      border-bottom: none;
+    }
+    .order-header {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #004f40;
+    }
+    .order-items {
+      margin-left: 1rem;
+    }
+    .order-items li {
+      margin: 4px 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="assets/shopping-bag.png" alt="Bagnook Logo" />
+      <span>Bagnook</span>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="cart.html">🛒 Cart</a>
+      <a href="profile.html">👤 Profile</a>
+      <a href="orders.html" class="active">📦 My Orders</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2 style="text-align: center; margin-top: 2rem;">📦 My Orders</h2>
+    <div class="orders-container" id="orders-container">
+      <p style="text-align: center;">Loading your orders...</p>
+    </div>
+  </main>
+
+  <script>
+    function logout() {
+      localStorage.removeItem("user");
+      window.location.href = "login.html";
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const ordersContainer = document.getElementById("orders-container");
+
+      if (!user || !user.id) {
+        ordersContainer.innerHTML = "<p style='color:red;text-align:center;'>❌ Please login to view your orders.</p>";
+        return;
+      }
+
+      try {
+        const res = await fetch(`http://localhost:3000/api/orders/${user.id}`);
+        const data = await res.json();
+
+        if (data.length === 0) {
+          ordersContainer.innerHTML = "<p style='text-align:center;'>😕 You haven't placed any orders yet.</p>";
+          return;
+        }
+
+        ordersContainer.innerHTML = "";
+        data.forEach(order => {
+          const items = JSON.parse(order.items);
+          const div = document.createElement("div");
+          div.className = "order-card";
+          div.innerHTML = `
+            <div class="order-header">Order #${order.id} • Total: ₹${order.total} • ${new Date(order.created_at).toLocaleString()}</div>
+            <ul class="order-items">
+              ${items.map(item => `<li>${item.name} - ₹${item.price}</li>`).join("")}
+            </ul>
+            <p>Payment Method: ${order.method} ${order.payment_id ? `• Payment ID: ${order.payment_id}` : ""}</p>
+          `;
+          ordersContainer.appendChild(div);
+        });
+
+      } catch (err) {
+        console.error("Failed to load orders", err);
+        ordersContainer.innerHTML = "<p style='color:red;text-align:center;'>❌ Failed to load orders.</p>";
+      }
+    });
+  </script>
+</body>
+</html>
